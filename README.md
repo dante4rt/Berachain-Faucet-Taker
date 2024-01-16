@@ -30,7 +30,7 @@ ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils 
 To run the script, execute the following command in your terminal:
 
 ```bash
-node script.js
+node index.js
 ```
 
 You will be prompted to enter a wallet address. The script will then perform actions on the faucet website and provide output in the console.

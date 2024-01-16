@@ -1,10 +1,13 @@
 const puppeteer = require('puppeteer');
 const { CronJob } = require('cron');
 const readlineSync = require('readline-sync');
-require('colors'); 
+require('colors');
 
 async function checkWebsite(address) {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   const page = await browser.newPage();
 
   await page.goto('https://artio.faucet.berachain.com/');
@@ -44,17 +47,17 @@ async function checkWebsite(address) {
 
   if (errorElement) {
     let errorMessage = await page.evaluate(
-      (el) => el.textContent,
+      (el) => (el ? el.textContent : 'Error element not found'),
       errorElement
     );
     console.log('Error: '.red + errorMessage.red);
     await browser.close();
     return 'error';
   } else if (successElement) {
-    let successMessage = await page.evaluate((el) => {
-      el.textContent, successElement;
-    });
-
+    let successMessage = await page.evaluate(
+      (el) => (el ? el.textContent : 'Success element not found'),
+      successElement
+    );
     console.log('Success: '.green + successMessage.green);
     await browser.close();
     return 'success';

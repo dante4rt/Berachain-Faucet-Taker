@@ -4,7 +4,7 @@ const readlineSync = require('readline-sync');
 require('colors'); 
 
 async function checkWebsite(address) {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
   await page.goto('https://artio.faucet.berachain.com/');

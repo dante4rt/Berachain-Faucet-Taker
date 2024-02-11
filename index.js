@@ -6,7 +6,7 @@ require('colors');
 function checkWebsite(address, callback) {
   puppeteer
     .launch({
-      headless: true,
+      headless: 'new',
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     })
     .then((browser) => {
